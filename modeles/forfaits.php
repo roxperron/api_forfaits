@@ -96,7 +96,7 @@ class modele_forfait {
 
 
     
-    public static function ajouter($code, $name, $description, $lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website, $dateStart, $dateEnd, $regular_price, $promotion_price, $premium) {
+      public static function ajouter($code, $name, $description, $lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website, $dateStart, $dateEnd, $regular_price, $promotion_price, $premium) {
         $message = '';
 
         $mysqli = self::connecter();
@@ -122,6 +122,73 @@ class modele_forfait {
 
         return $message;
       }
+
+      
+    public static function modifier($id,$code, $name, $description, $lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website, $dateStart, $dateEnd, $regular_price, $promotion_price, $premium) {
+        $message = '';
+
+        $mysqli = self::connecter();
+        
+        if ($requete = $mysqli->prepare("UPDATE packages SET code=?, name=?, description=?, lodging_name=?, lodging_description=?, lodging_address=?, lodging_city=?, lodging_postalcode=?, lodging_phonenumber=?, lodging_email=?, lodging_website=?, dateStart=?, dateEnd=?, regular_price=?, promotion_price=?, premium=? WHERE id=?")) {      
+
+
+        $requete->bind_param("sssssssssssssddii",$code, $name, $description, $lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website, $dateStart, $dateEnd, $regular_price, $promotion_price, $premium, $id);
+
+        if($requete->execute()) { 
+            $message = "Forfait modifié!";  
+        } else {
+            $message =  "Une erreur est survenue lors de la modification: " . $requete->error;  
+        }
+
+        $requete->close(); 
+        } else  {
+            echo "Une erreur a été détectée dans la requête utilisée : ";   
+            echo $mysqli->error;
+            echo "<br>";
+            exit();
+        }
+
+        return $message;
+      }
+
+
+      public static function supprimer($id) {
+        $message = '';
+
+        $mysqli = self::connecter();
+        
+       
+        if ($requete = $mysqli->prepare("DELETE FROM packages WHERE id=?")) {      
+
+       
+
+        $requete->bind_param("i", $id);
+
+        if($requete->execute()) { 
+            $message = "Forfait supprimé!";  
+        } else {
+            $message =  "Une erreur est survenue lors de la suppression: " . $requete->error;  
+        }
+
+        $requete->close(); 
+
+        } else  {
+            echo "Une erreur a été détectée dans la requête utilisée : ";
+            echo $mysqli->error;
+            echo "<br>";
+            exit();
+        }
+
+        return $message;
+    }
+
+
+
+      
+
+
+
+
 
 }
 
