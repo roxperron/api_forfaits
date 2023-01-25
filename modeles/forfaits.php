@@ -137,15 +137,16 @@ class modele_forfait {
         if($requete->execute()) { 
             $message = "Forfait modifié!";  
         } else {
-            $message =  "Une erreur est survenue lors de la modification: " . $requete->error;  
+            http_response_code(500); 
+            $resultat->message =  "Une erreur est survenue lors de l'édition: "; 
+            $resultat->erreur = $requete->error;
         }
 
         $requete->close(); 
         } else  {
-            echo "Une erreur a été détectée dans la requête utilisée : ";   
-            echo $mysqli->error;
-            echo "<br>";
-            exit();
+            http_response_code(500);
+            $resultat->message = "Une erreur a été détectée dans la requête utilisée : ";
+            $resultat->erreur = $mysqli->error;
         }
 
         return $message;
@@ -167,16 +168,17 @@ class modele_forfait {
         if($requete->execute()) { 
             $message = "Forfait supprimé!";  
         } else {
-            $message =  "Une erreur est survenue lors de la suppression: " . $requete->error;  
+            http_response_code(500); 
+            $resultat->message = "Une erreur est survenue lors de la suppression: ";  
+            $resultat->erreur = $requete->error;
         }
 
         $requete->close(); 
 
         } else  {
-            echo "Une erreur a été détectée dans la requête utilisée : ";
-            echo $mysqli->error;
-            echo "<br>";
-            exit();
+            http_response_code(500); 
+            $resultat->message = "Une erreur a été détectée dans la requête utilisée : ";
+            $resultat->erreur = $mysqli->error;
         }
 
         return $message;

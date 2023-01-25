@@ -20,17 +20,13 @@
             break;
         
         case 'PUT':
-            if(isset($_GET['id'])){
                 $corpsJSON = file_get_contents('php://input');
                 $data = json_decode($corpsJSON, TRUE);
                 $controleurForfait->modifierJSON($data);
-            }
             break;
             
         case 'DELETE':
-            if(isset($_GET['id'])){
                 $controleurForfait->supprimerJSON($_GET['id']);
-            } 
             break;
             default;
     }
