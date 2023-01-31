@@ -97,7 +97,7 @@ class modele_forfait {
 
     
       public static function ajouter($code, $name, $description, $lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website, $dateStart, $dateEnd, $regular_price, $promotion_price, $premium) {
-        $message = '';
+        $resultat = new stdClass();
 
         $mysqli = self::connecter();
         
@@ -109,23 +109,25 @@ class modele_forfait {
         if($requete->execute()) { 
             $message = "Forfait ajouté!";  
         } else {
-            $message =  "Une erreur est survenue lors de l'ajout: " . $requete->error;  
+            http_response_code(500); 
+            $resultat->message =  "Une erreur est survenue lors de l'ajout"; 
+            $resultat->erreur = $requete->error;
         }
 
         $requete->close(); 
+
         } else  {
-            echo "Une erreur a été détectée dans la requête utilisée : ";   
-            echo $mysqli->error;
-            echo "<br>";
-            exit();
+            http_response_code(500); 
+            $resultat->message = "Une erreur a été détectée dans la requête utilisée : ";
+            $resultat->erreur = $mysqli->error;
         }
 
-        return $message;
+        return $resultat;
       }
 
       
     public static function modifier($id,$code, $name, $description, $lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website, $dateStart, $dateEnd, $regular_price, $promotion_price, $premium) {
-        $message = '';
+        $resultat = new stdClass();
 
         $mysqli = self::connecter();
         
@@ -149,12 +151,12 @@ class modele_forfait {
             $resultat->erreur = $mysqli->error;
         }
 
-        return $message;
+        return $resultat;
       }
 
 
       public static function supprimer($id) {
-        $message = '';
+        $resultat = new stdClass();
 
         $mysqli = self::connecter();
         
@@ -181,7 +183,7 @@ class modele_forfait {
             $resultat->erreur = $mysqli->error;
         }
 
-        return $message;
+        return $resultat;
     }
 
 
