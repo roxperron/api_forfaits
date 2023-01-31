@@ -107,7 +107,7 @@ class modele_forfait {
         $requete->bind_param("sssssssssssssddi", $code, $name, $description, $lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website, $dateStart, $dateEnd, $regular_price, $promotion_price, $premium);
 
         if($requete->execute()) { 
-            $message = "Forfait ajouté!";  
+            $resultat->message = "Forfait ajouté!";  
         } else {
             http_response_code(500); 
             $resultat->message =  "Une erreur est survenue lors de l'ajout"; 
@@ -137,7 +137,7 @@ class modele_forfait {
         $requete->bind_param("sssssssssssssddii",$code, $name, $description, $lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website, $dateStart, $dateEnd, $regular_price, $promotion_price, $premium, $id);
 
         if($requete->execute()) { 
-            $message = "Forfait modifié!";  
+            $resultat->message = "Forfait modifié!";  
         } else {
             http_response_code(500); 
             $resultat->message =  "Une erreur est survenue lors de l'édition: "; 
@@ -168,7 +168,7 @@ class modele_forfait {
         $requete->bind_param("i", $id);
 
         if($requete->execute()) { 
-            $message = "Forfait supprimé!";  
+            $resultat->message = "Forfait supprimé!";  
         } else {
             http_response_code(500); 
             $resultat->message = "Une erreur est survenue lors de la suppression: ";  
