@@ -3,19 +3,42 @@
 
 require_once "./include/config.php";
 
+class modele_lodging {
+    public $name;
+    public $description;
+    public $address;
+    public $city;
+    public $postalcode;
+    public $phonenumber;
+    public $email;
+    public $website;
+
+    public function __construct($lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website){
+        $this->name= $lodging_name;
+        $this->description= $lodging_description;
+        $this->address= $lodging_address;
+        $this->city= $lodging_city;
+        $this->postalcode= $lodging_postalcode;
+        $this->phonenumber= $lodging_phonenumber;
+        $this->email= $lodging_email;
+        $this->website= $lodging_website;
+    }
+
+}
+
 class modele_forfait {
     public $id; 
     public $code; 
     public $name;
     public $description;
-    public $lodging_name;
+   /*  public $lodging_name;
     public $lodging_description;
     public $lodging_address;
     public $lodging_city;
     public $lodging_postalcode;
     public $lodging_phonenumber;
     public $lodging_email;
-    public $lodging_website;
+    public $lodging_website; */
     public $dateStart;
     public $dateEnd;
     public $regular_price;
@@ -27,19 +50,12 @@ class modele_forfait {
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;
-        $this->lodging_name = $lodging_name;
-        $this->lodging_description = $lodging_description;
-        $this->lodging_address = $lodging_address;
-        $this->lodging_city = $lodging_city;
-        $this->lodging_postalcode = $lodging_postalcode;
-        $this->lodging_phonenumber = $lodging_phonenumber;
-        $this->lodging_email = $lodging_email;
-        $this->lodging_website = $lodging_website;
         $this->dateStart = $dateStart;
         $this->dateEnd = $dateEnd;
         $this->regular_price = $regular_price;
         $this->promotion_price = $promotion_price;
         $this->premium = $premium;
+        $this->lodging = new modele_lodging($lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website);
     }
 
  
@@ -60,7 +76,7 @@ class modele_forfait {
         $liste = [];
         $mysqli = self::connecter();
 
-        $resultatRequete = $mysqli->query("SELECT id, code, name, description, lodging_name, lodging_description, lodging_address, lodging_city, lodging_postalcode, lodging_phonenumber, lodging_email, lodging_website, dateStart, dateEnd, regular_price, promotion_price, premium FROM packages ORDER BY id");
+        $resultatRequete = $mysqli->query("SELECT * FROM packages ORDER BY id");
 
         foreach ($resultatRequete as $enregistrement) {
             $liste[] = new modele_forfait($enregistrement['id'], $enregistrement['code'], $enregistrement['name'], $enregistrement['description'],  $enregistrement['lodging_name'],  $enregistrement['lodging_description'],  $enregistrement['lodging_address'],  $enregistrement['lodging_city'],  $enregistrement['lodging_postalcode'],  $enregistrement['lodging_phonenumber'],  $enregistrement['lodging_email'],  $enregistrement['lodging_website'],  $enregistrement['dateStart'],  $enregistrement['dateEnd'],  $enregistrement['regular_price'],  $enregistrement['promotion_price'],  $enregistrement['premium']);
