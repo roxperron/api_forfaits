@@ -45,8 +45,40 @@ class ControleurForfait {
 
     function ajouterJSON($data) {
         $resultat = new stdClass();
-            if(isset($data['code']) && isset($data['name']) && isset($data['description']) && isset($data['lodging_name']['lodging_description']['lodging_address']['lodging_city']['lodging_postalcode']['lodging_phonenumber']['lodging_email']['lodging_website'])  && isset($data['dateStart']) && isset($data['dateEnd']) && isset($data['regular_price']) && isset($data['promotion_price']) && isset($data['premium'])) {
-        $resultat->message = modele_forfait::ajouter($data['code'], $data['name'], $data['description'],  $data['lodging_name']['lodging_description']['lodging_address']['lodging_city']['lodging_postalcode']['lodging_phonenumber']['lodging_email']['lodging_website'],  $data['dateStart'],  $data['dateEnd'],  $data['regular_price'],  $data['promotion_price'], $data['premium']);
+            if(
+                isset($data['code']) 
+                && isset($data['name']) 
+                && isset($data['description']) 
+                && isset($data['lodging']['name']) 
+                && isset($data['lodging']['description'])
+                && isset($data['lodging']['address'])
+                && isset($data['lodging']['city'])
+                && isset($data['lodging']['postalcode'])
+                && isset($data['lodging']['phonenumber'])
+                && isset($data['lodging']['email'])
+                && isset($data['lodging']['website'])
+                && isset($data['startdate']) 
+                && isset($data['enddate']) 
+                && isset($data['price']) 
+                && isset($data['newprice']) 
+                && isset($data['prenium'])) {
+        $resultat->message = modele_forfait::ajouter(
+            $data['code'], 
+            $data['name'], 
+            $data['description'],  
+            $data['lodging']['name'], 
+            $data['lodging']['description'],
+            $data['lodging']['address'],
+            $data['lodging']['city'],
+            $data['lodging']['postalcode'],
+            $data['lodging']['phonenumber'],
+            $data['lodging']['email'],
+            $data['lodging']['website'],
+            $data['startdate'],  
+            $data['enddate'],  
+            $data['price'],  
+            $data['newprice'], 
+            $data['prenium']);
         } else {
             http_response_code(500); 
             $resultat->message = "Impossible d'ajouter un forfait. Des informations sont manquantes";
@@ -57,8 +89,41 @@ class ControleurForfait {
     function modifierJSON($data) {
         $resultat = new stdClass();
         if(isset($_GET['id'])){
-            if(isset($data['code']) && isset($data['name']) && isset($data['description']) && isset($data['lodging_name']['lodging_description']['lodging_address']['lodging_city']['lodging_postalcode']['lodging_phonenumber']['lodging_email']['lodging_website'])  && isset($data['dateStart']) && isset($data['dateEnd']) && isset($data['regular_price']) && isset($data['promotion_price']) && isset($data['premium'])) {
-            $resultat->message = modele_forfait::modifier($_GET['id'], $data['code'], $data['name'], $data['description'],  $data['lodging_name']['lodging_description']['lodging_address']['lodging_city']['lodging_postalcode']['lodging_phonenumber']['lodging_email']['lodging_website'],  $data['dateStart'],  $data['dateEnd'],  $data['regular_price'],  $data['promotion_price'], $data['premium']);
+            if(
+            isset($data['code']) 
+            && isset($data['name']) 
+            && isset($data['description']) 
+            && isset($data['lodging']['name']) 
+            && isset($data['lodging']['description'])
+            && isset($data['lodging']['address'])
+            && isset($data['lodging']['city'])
+            && isset($data['lodging']['postalcode'])
+            && isset($data['lodging']['phonenumber'])
+            && isset($data['lodging']['email'])
+            && isset($data['lodging']['website'])
+            && isset($data['startdate']) 
+            && isset($data['enddate']) 
+            && isset($data['price']) 
+            && isset($data['newprice']) 
+            && isset($data['prenium'])) {
+                $resultat->message = modele_forfait::modifier
+                    ($_GET['id'],
+                    $data['code'], 
+                    $data['name'], 
+                    $data['description'],  
+                    $data['lodging']['name'], 
+                    $data['lodging']['description'],
+                    $data['lodging']['address'],
+                    $data['lodging']['city'],
+                    $data['lodging']['postalcode'],
+                    $data['lodging']['phonenumber'],
+                    $data['lodging']['email'],
+                    $data['lodging']['website'],
+                    $data['startdate'],  
+                    $data['enddate'],  
+                    $data['price'],  
+                    $data['newprice'], 
+                    $data['prenium']);
             } else {
                 http_response_code(500);
                 $resultat->message = "Impossible de modifier le forfait. Des informations sont manquantes";

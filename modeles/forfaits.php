@@ -39,22 +39,22 @@ class modele_forfait {
     public $lodging_phonenumber;
     public $lodging_email;
     public $lodging_website; */
-    public $dateStart;
-    public $dateEnd;
-    public $regular_price;
-    public $promotion_price;
-    public $premium;
+    public $startdate;
+    public $enddate;
+    public $price;
+    public $newprice;
+    public $prenium;
 
     public function __construct($id, $code, $name, $description, $lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website, $dateStart, $dateEnd, $regular_price, $promotion_price, $premium) {
         $this->id = $id;
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;
-        $this->dateStart = $dateStart;
-        $this->dateEnd = $dateEnd;
-        $this->regular_price = $regular_price;
-        $this->promotion_price = $promotion_price;
-        $this->premium = $premium;
+        $this->startdate = $dateStart;
+        $this->enddate = $dateEnd;
+        $this->price = $regular_price;
+        $this->newprice = $promotion_price;
+        $this->prenium = boolval($premium);
         $this->lodging = new modele_lodging($lodging_name, $lodging_description, $lodging_address, $lodging_city, $lodging_postalcode, $lodging_phonenumber, $lodging_email, $lodging_website);
     }
 
